@@ -1,0 +1,45 @@
+//
+// !!! WARNING !!! AUTO-GENERATED FILE!
+// PLEASE DO NOT MODIFY IT AND USE "platformio.ini":
+// https://docs.platformio.org/page/projectconf/section_env_build.html#build-flags
+//
+{
+    "configurations": [
+        {
+            "name": "PlatformIO",
+            "includePath": [
+                "C:/Users/julio/projects/LoRACommunicationIoT/LoRA-Communication/include",
+                "C:/Users/julio/projects/LoRACommunicationIoT/LoRA-Communication/src",
+                "C:/Users/julio/projects/LoRACommunicationIoT/LoRA-Communication/.pio/libdeps/desktop/googletest",
+                "C:/Users/julio/projects/LoRACommunicationIoT/LoRA-Communication/.pio/libdeps/desktop/googletest/googlemock",
+                "C:/Users/julio/projects/LoRACommunicationIoT/LoRA-Communication/.pio/libdeps/desktop/googletest/googlemock/include",
+                "C:/Users/julio/projects/LoRACommunicationIoT/LoRA-Communication/.pio/libdeps/desktop/googletest/googletest",
+                "C:/Users/julio/projects/LoRACommunicationIoT/LoRA-Communication/.pio/libdeps/desktop/googletest/googletest/include",
+                ""
+            ],
+            "browse": {
+                "limitSymbolsToIncludedHeaders": true,
+                "path": [
+                    "C:/Users/julio/projects/LoRACommunicationIoT/LoRA-Communication/include",
+                    "C:/Users/julio/projects/LoRACommunicationIoT/LoRA-Communication/src",
+                    "C:/Users/julio/projects/LoRACommunicationIoT/LoRA-Communication/.pio/libdeps/desktop/googletest",
+                    "C:/Users/julio/projects/LoRACommunicationIoT/LoRA-Communication/.pio/libdeps/desktop/googletest/googlemock",
+                    "C:/Users/julio/projects/LoRACommunicationIoT/LoRA-Communication/.pio/libdeps/desktop/googletest/googlemock/include",
+                    "C:/Users/julio/projects/LoRACommunicationIoT/LoRA-Communication/.pio/libdeps/desktop/googletest/googletest",
+                    "C:/Users/julio/projects/LoRACommunicationIoT/LoRA-Communication/.pio/libdeps/desktop/googletest/googletest/include",
+                    ""
+                ]
+            },
+            "defines": [
+                "PLATFORMIO=60200",
+                ""
+            ],
+            "cppStandard": "c++20",
+            "compilerPath": "C:/msys64/ucrt64/bin/gcc.exe",
+            "compilerArgs": [
+                ""
+            ]
+        }
+    ],
+    "version": 4
+}
