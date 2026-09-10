@@ -10,8 +10,8 @@ enum class Direction {
 
 enum class ButtonState {
     None,
-    Click,
-    LongPress
+    Released,
+    Pressed
 };
 
 

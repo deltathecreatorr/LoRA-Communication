@@ -9,18 +9,18 @@
 
 class FakeGpio : public IGpio {
     public:
-        void setPinState(uint8_t pin, int value) {
-            pinStates[pin] = value;
-        }
+    void set_level(gpio_num_t gpio_num, int level) {
+        pinStates[gpio_num] = level;
+    }
 
-        int digitalRead(uint8_t pin) override {
-            return pinStates[pin];
-        }
+    int gpio_get_level(gpio_num_t gpio_num) override {
+        return pinStates[gpio_num]; 
+    }
 
-        void pinMode(uint8_t pin, uint8_t mode) override {
-            (void)pin;
-            (void)mode;
-        }
+    void gpio_set_direction(gpio_num_t gpio_num, gpio_mode_t mode) override {
+        (void)gpio_num;
+        (void)mode;
+    }
     private:
-        std::map<uint8_t, int> pinStates;
+        std::map<gpio_num_t, int> pinStates;
 };
