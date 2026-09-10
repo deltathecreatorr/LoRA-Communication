@@ -10,6 +10,9 @@
             "includePath": [
                 "C:/Users/julio/projects/LoRACommunicationIoT/LoRA-Communication/include",
                 "C:/Users/julio/projects/LoRACommunicationIoT/LoRA-Communication/src",
+                "C:/Users/julio/projects/LoRACommunicationIoT/LoRA-Communication/lib/Gpio",
+                "C:/Users/julio/projects/LoRACommunicationIoT/LoRA-Communication/lib/MenuEngine",
+                "C:/Users/julio/projects/LoRACommunicationIoT/LoRA-Communication/lib/RotaryEncoder",
                 "C:/Users/julio/projects/LoRACommunicationIoT/LoRA-Communication/.pio/libdeps/desktop/googletest",
                 "C:/Users/julio/projects/LoRACommunicationIoT/LoRA-Communication/.pio/libdeps/desktop/googletest/googlemock",
                 "C:/Users/julio/projects/LoRACommunicationIoT/LoRA-Communication/.pio/libdeps/desktop/googletest/googlemock/include",
@@ -22,6 +25,9 @@
                 "path": [
                     "C:/Users/julio/projects/LoRACommunicationIoT/LoRA-Communication/include",
                     "C:/Users/julio/projects/LoRACommunicationIoT/LoRA-Communication/src",
+                    "C:/Users/julio/projects/LoRACommunicationIoT/LoRA-Communication/lib/Gpio",
+                    "C:/Users/julio/projects/LoRACommunicationIoT/LoRA-Communication/lib/MenuEngine",
+                    "C:/Users/julio/projects/LoRACommunicationIoT/LoRA-Communication/lib/RotaryEncoder",
                     "C:/Users/julio/projects/LoRACommunicationIoT/LoRA-Communication/.pio/libdeps/desktop/googletest",
                     "C:/Users/julio/projects/LoRACommunicationIoT/LoRA-Communication/.pio/libdeps/desktop/googletest/googlemock",
                     "C:/Users/julio/projects/LoRACommunicationIoT/LoRA-Communication/.pio/libdeps/desktop/googletest/googlemock/include",

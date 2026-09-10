@@ -4,6 +4,12 @@ The repository will hold the code and schematic for the devices that will commun
 # Schematic
 The schematic is still being finalised.
 
+# Testing
+Testing can be run using:
+```
+pio -e test desktop
+```
+
 # License
 This project has the MIT License. Please check the LICENSE file for more information.
 

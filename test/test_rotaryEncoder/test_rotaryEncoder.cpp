@@ -1,9 +1,8 @@
 #include <gtest/gtest.h>
+#include "FakeGpio.hpp"
+#include "rotaryEncoder.hpp"
 
 
-TEST(DummyTest, ShouldPass) {
-    EXPECT_EQ(1, 1);
-}
 
 // Functional Test Cases
 TEST(SingleStepClockwise, ShouldPass) {
