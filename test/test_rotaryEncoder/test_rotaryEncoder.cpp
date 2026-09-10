@@ -15,7 +15,6 @@ class RotaryEncoderTest : public ::testing::Test {
             fakeGpio.set_level(43, 1); // encoder pin A
             fakeGpio.set_level(44, 1); // encoder pin B
             fakeGpio.set_level(6, 1); // button pin S1
-
         }
 
         // executed immediately after each test runs
@@ -24,14 +23,22 @@ class RotaryEncoderTest : public ::testing::Test {
         }
 };
 
+// Clockwise: Pin A connects to ground and drops to zero first, and then Pin B
+// Counter Clockwise: Pin B connects to ground first and drops to zero, and then Pin A
 
 // Functional Test Cases
-TEST(SingleStepClockwise, ShouldPass) {
-    EXPECT_EQ(1, 1);
+TEST_F(RotaryEncoderTest, OneClockwise) {
+    EXPECT_EQ(reader->getLastDirection(), Direction::None);
+    fakeGpio.set_level(43, 0);
+    reader->isr_pinA();
+    EXPECT_EQ(reader->getLastDirection(), Direction::CW);
 }
 
-TEST(SingleStepCounterClockwise, ShouldPass) {
-    EXPECT_EQ(1, 1);
+TEST_F(RotaryEncoderTest, OneCounterClockwise) {
+    EXPECT_EQ(reader->getLastDirection(), Direction::None);
+    fakeGpio.set_level(44, 0);
+    reader->isr_pinA();
+    EXPECT_EQ(reader->getLastDirection(), Direction::CCW);
 }
 
 TEST(SlowRotation, ShouldPass) {

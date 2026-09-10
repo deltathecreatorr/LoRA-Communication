@@ -11,29 +11,36 @@ enum class Direction {
 enum class ButtonState {
     None,
     Released,
-    Pressed
+    Pressed,
+    LongPressed
 };
 
 
 class RotaryReader {
     public:
-        RotaryReader(IGpio& gpio, uint8_t pinA, uint8_t pinB, uint8_t pinBtn)
+        RotaryReader(IGpio& gpio, gpio_num_t pinA, gpio_num_t pinB, gpio_num_t pinBtn)
             : gpio(gpio), pinA(pinA), pinB(pinB), pinBtn(pinBtn) {
                 
             }
         
-        void update();
+        void update(uint32_t currentTimeMs);
 
-        Direction getLastDirection() const;
+        Direction getLastDirection();
 
-        ButtonState getLastButtonState() const;
+        ButtonState getLastButtonState();
+
+        void isr_pinA();
+
+        void isr_pinBtn();
 
     private:
         IGpio& gpio;
-        uint8_t pinA, pinB, pinBtn;
+        gpio_num_t pinA, pinB, pinBtn;
 
         Direction lastDirection = Direction::None;
         ButtonState lastButtonState = ButtonState::None;
-
+        uint32_t buttonPressStartTime = 0;
+        bool isTimingPress = false;
+        bool longPressHandled = false;
 };
 
