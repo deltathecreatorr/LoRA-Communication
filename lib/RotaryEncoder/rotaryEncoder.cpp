@@ -13,13 +13,20 @@ ButtonState RotaryReader::getLastButtonState() {
 }
 
 void RotaryReader::update(uint32_t currentTimeMs) {
-
-    ButtonState state = getLastButtonState();
-    if (state == ButtonState::Pressed) {
-        uint32_t buttonPressStartTime = currentTimeMs;
-        bool isTimingPress = true;
+    if (buttonHeld && !wasButtonHeld) {
+        pressStartTime = currentTimeMs;
+        lastButtonState = ButtonState::None;
+    } else if (!buttonHeld && wasButtonHeld) {
+        uint32_t heldDuration = currentTimeMs - pressStartTime;
+        if (heldDuration >= LongPressThresholdMs) {
+            lastButtonState = ButtonState::LongPressed;
+        } else {
+            lastButtonState = ButtonState::Released;
+        }
+    } else {
+        lastButtonState = ButtonState::None;
     }
-
+    wasButtonHeld = buttonHeld;
 }
 
 // test functions
@@ -37,10 +44,5 @@ void RotaryReader::isr_pinA() {
 
 void RotaryReader::isr_pinBtn() {
     int stateBtn = gpio.gpio_get_level(pinBtn);
-
-    if (stateBtn == 1) {
-        lastButtonState = ButtonState::Released;
-    } else {
-        lastButtonState = ButtonState::Pressed;
-    }
+    buttonHeld = (stateBtn == 0);
 }

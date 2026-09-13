@@ -11,7 +11,6 @@ enum class Direction {
 enum class ButtonState {
     None,
     Released,
-    Pressed,
     LongPressed
 };
 
@@ -39,8 +38,10 @@ class RotaryReader {
 
         Direction lastDirection = Direction::None;
         ButtonState lastButtonState = ButtonState::None;
-        uint32_t buttonPressStartTime = 0;
-        bool isTimingPress = false;
-        bool longPressHandled = false;
+
+        bool wasButtonHeld = false;
+        bool buttonHeld = false;
+        uint32_t pressStartTime = 0;
+        static constexpr uint32_t LongPressThresholdMs = 800;
 };
 
