@@ -11,7 +11,7 @@ The repository will hold the code and schematic for the devices that will commun
 # Wiring Diagram
 The schematic below represents the wiring between the different parts of the entire system.
 
-![Wireless LoRa Communicator](images\LoRACommunicationIoT.svg)
+![Wireless LoRa Communicator](images\LoRACommunicationIoT.pdf)
 
 
 # Testing
