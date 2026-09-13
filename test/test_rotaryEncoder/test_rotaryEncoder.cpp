@@ -23,6 +23,7 @@ class RotaryEncoderTest : public ::testing::Test {
         }
 };
 
+
 // Clockwise: Pin A connects to ground and drops to zero first, and then Pin B
 // Counter Clockwise: Pin B connects to ground first and drops to zero, and then Pin A
 
@@ -68,7 +69,7 @@ TEST_F(RotaryEncoderTest, ReadingDirectionTwiceReturnsNoneSecondTime) {
 TEST_F(RotaryEncoderTest, NoPressReturnsNone) {
     EXPECT_EQ(reader->getLastButtonState(), ButtonState::None);
     fakeGpio.set_level(6, 1);
-    reader->isr_pinBtn();
+    reader->isr_pinBtn(0);
     reader->update(0);
     EXPECT_EQ(reader->getLastButtonState(), ButtonState::None);
 }
@@ -76,29 +77,50 @@ TEST_F(RotaryEncoderTest, NoPressReturnsNone) {
 TEST_F(RotaryEncoderTest, ButtonPress) {
     EXPECT_EQ(reader->getLastButtonState(), ButtonState::None);
     fakeGpio.set_level(6, 0);
-    reader->isr_pinBtn();
+    reader->isr_pinBtn(0);
     reader->update(0);
     EXPECT_EQ(reader->getLastButtonState(), ButtonState::None);
     fakeGpio.set_level(6, 1);
-    reader->isr_pinBtn();
+    reader->isr_pinBtn(30);
     reader->update(0);
     EXPECT_EQ(reader->getLastButtonState(), ButtonState::Released);
 }
-// TEST(ButtonDebounce, ShouldPass) {
-    
-// }
+
+TEST_F(RotaryEncoderTest, ButtonLongPress) {
+    EXPECT_EQ(reader->getLastButtonState(), ButtonState::None);
+    fakeGpio.set_level(6, 0);
+    reader->isr_pinBtn(0);
+    reader->update(900);
+    EXPECT_EQ(reader->getLastButtonState(), ButtonState::None);
+    fakeGpio.set_level(6, 1);
+    reader->isr_pinBtn(900);
+    reader->update(0);
+    EXPECT_EQ(reader->getLastButtonState(), ButtonState::LongPressed);
+}
+
+TEST_F(RotaryEncoderTest, ButtonDebounce) {
+    EXPECT_EQ(reader->getLastButtonState(), ButtonState::None);
+    fakeGpio.set_level(6, 0);
+    reader->isr_pinBtn(0);
+    reader->update(0);
+    EXPECT_EQ(reader->getLastButtonState(), ButtonState::None);
+    fakeGpio.set_level(6, 1);
+    reader->isr_pinBtn(10);
+    reader->update(0);
+    EXPECT_EQ(reader->getLastButtonState(), ButtonState::None);
+}
 
 TEST_F(RotaryEncoderTest, SimultaneousButtonPressRotation) {
     EXPECT_EQ(reader->getLastButtonState(), ButtonState::None);
     EXPECT_EQ(reader->getLastDirection(), Direction::None);
     fakeGpio.set_level(43, 0);
     fakeGpio.set_level(6, 0);
-    reader->isr_pinBtn();
+    reader->isr_pinBtn(0);
     reader->update(0);
     EXPECT_EQ(reader->getLastButtonState(), ButtonState::None);
     fakeGpio.set_level(6, 1);
     reader->isr_pinA();
-    reader->isr_pinBtn();
+    reader->isr_pinBtn(30);
     reader->update(0);
     EXPECT_EQ(reader->getLastDirection(), Direction::CW);
     EXPECT_EQ(reader->getLastButtonState(), ButtonState::Released);
@@ -106,13 +128,7 @@ TEST_F(RotaryEncoderTest, SimultaneousButtonPressRotation) {
 
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
-    
-    if (RUN_ALL_TESTS() == 0) {
-        std::cout << "All tests passed!" << std::endl;
-    } else {
-        std::cout << "Some tests failed." << std::endl;
-    }
-    
+
     return RUN_ALL_TESTS();
 }
 

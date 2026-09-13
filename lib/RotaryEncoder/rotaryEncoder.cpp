@@ -42,7 +42,13 @@ void RotaryReader::isr_pinA() {
 
 }
 
-void RotaryReader::isr_pinBtn() {
+void RotaryReader::isr_pinBtn(uint32_t currentTimeMs) {
+    if (hasAcceptedFirstReading  && (DebounceWindowMs > (currentTimeMs - lastDebounceTimeMs))) {
+        return;
+    }
     int stateBtn = gpio.gpio_get_level(pinBtn);
     buttonHeld = (stateBtn == 0);
+    lastDebounceTimeMs = currentTimeMs;
+    hasAcceptedFirstReading = true;
+
 }

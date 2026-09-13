@@ -30,7 +30,7 @@ class RotaryReader {
 
         void isr_pinA();
 
-        void isr_pinBtn();
+        void isr_pinBtn(uint32_t currentTimeMs);
 
     private:
         IGpio& gpio;
@@ -43,5 +43,8 @@ class RotaryReader {
         bool buttonHeld = false;
         uint32_t pressStartTime = 0;
         static constexpr uint32_t LongPressThresholdMs = 800;
+        static constexpr uint32_t DebounceWindowMs = 30;
+        uint32_t lastDebounceTimeMs = 0;
+        bool hasAcceptedFirstReading = false;
 };
 
