@@ -25,4 +25,8 @@ class MenuEngine {
             root = injectedRoot;
             nav_stack.push_back({&root.children, 0}); // push/pop through the stack to navigate through menus.
         };
+
+        void next();
+        void previous();
+        void select();
 };
