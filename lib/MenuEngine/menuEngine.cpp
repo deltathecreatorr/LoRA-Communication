@@ -5,11 +5,19 @@
 // label must be set, but children can be zero if there are no submenus for the item
 
 void MenuEngine::next() {
-    nav_stack.back().second++; //goes to the second last member of the stack and increments by one to go to the next menu.
+    auto& top = nav_stack.back();
+    // only increment if aren't already at last item
+    if (top.second + 1 < top.first->size()) {
+        top.second++;
+    } //goes to the second last member of the stack and increments by one to go to the next menu.
 };
 
 void MenuEngine::previous() {
-    nav_stack.back().second--; //goes to the second last member of the stack and decrements by one to go the previous menu.
+    auto& top = nav_stack.back();
+    // only decrement if above first item (index 0)
+    if (top.second > 0) {
+        top.second--;
+    } //goes to the second last member of the stack and decrements by one to go the previous menu.
 };
 
 void MenuEngine::select() {

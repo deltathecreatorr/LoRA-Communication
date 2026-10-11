@@ -63,3 +63,5 @@ void MenuEngine::back_page(){};
 ```
 
 Checks if the stack size is greater than 1, and removes the top item from nav_stack, returning the user to the previous menu level.
+
+previous() and back_page() sound similar, but previous goes backwards in the stack, while back_page() moves up the tree node
