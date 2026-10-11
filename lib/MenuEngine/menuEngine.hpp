@@ -29,4 +29,5 @@ class MenuEngine {
         void next();
         void previous();
         void select();
+        void back_page();
 };

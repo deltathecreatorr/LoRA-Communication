@@ -22,3 +22,9 @@ void MenuEngine::select() {
         current.action->execute(); //execute the childs action
     }
 };
+
+void MenuEngine::back_page() {
+    if (nav_stack.size() > 1) {
+        nav_stack.pop_back();
+    }
+};
