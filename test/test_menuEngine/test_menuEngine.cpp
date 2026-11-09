@@ -7,7 +7,7 @@ class MockMenuAction : public IMenuAction {
         int callCount = 0;
 };
 
-// create test fixture that setups a tree with one child menuNode from root
+// create test fixture that setups a tree with three children menuNode from root
 class MenuEngineTest : public ::testing::Test {
     protected:
         MenuEngine* menuEngine;
@@ -17,16 +17,23 @@ class MenuEngineTest : public ::testing::Test {
             MenuNode menuNode = MenuNode();
             MenuNode child1;
             MenuNode child2;
+            MenuNode child3;
             MenuNode grandchild1;
+            MenuNode grandchild2;
             child1.label = "Page 1";
             child2.label = "Page 2";
-            child2.action = &mockAction2;
 
             grandchild1.label = "grandchild1";
             grandchild1.action = &mockAction1;
             child1.children = { grandchild1 };
 
-            menuNode.children = { child1, child2 };
+            grandchild2.label = "grandchild2";
+            grandchild2.action = &mockAction2;
+            child2.children = { grandchild2 };
+
+            child3.label = "Page 3";
+
+            menuNode.children = { child1, child2, child3 };
 
 
             menuEngine = new MenuEngine(menuNode);
@@ -74,12 +81,14 @@ TEST_F(MenuEngineTest, EnterSubmenu) {
 }
 
 TEST_F(MenuEngineTest, ExitSubmenu) {
-    menuEngine->select(); 
+    menuEngine->next();
+    menuEngine->select();
+    EXPECT_EQ(menuEngine->nav_stack.size(), 2u);
+    menuEngine->back_page(); 
 
-    menuEngine->back_page();
     auto& top = menuEngine->nav_stack.back();
     MenuNode& current = (*top.first)[top.second];  
-    EXPECT_EQ(current.label, "Page 1");
+    EXPECT_EQ(current.label, "Page 2");
 }
 
 TEST_F(MenuEngineTest, mockActionTest) {
@@ -92,13 +101,27 @@ TEST_F(MenuEngineTest, mockActionTest) {
     menuEngine->back_page();
     menuEngine->next();
     menuEngine->select();
-
+    menuEngine->select();
+    EXPECT_EQ(mockAction1.callCount, 1);
     EXPECT_EQ(mockAction2.callCount, 1); // mockAction2 is a protected member variable and can be directly accessed.
+}
+
+TEST_F(MenuEngineTest, nullActionTest) {
+    menuEngine->next();
+    menuEngine->next();
+
+    menuEngine->select();
+    EXPECT_EQ(menuEngine->nav_stack.size(), 1u);
+    auto& top = menuEngine->nav_stack.back();
+    MenuNode& current = (*top.first)[top.second];  
+    EXPECT_EQ(current.label, "Page 3");
+    EXPECT_EQ(mockAction1.callCount, 0);
+    EXPECT_EQ(mockAction2.callCount, 0);
 }
 
 TEST_F(MenuEngineTest, RootProtection) {
     menuEngine->back_page();
-    EXPECT_EQ(menuEngine->nav_stack.size(), 1);
+    EXPECT_EQ(menuEngine->nav_stack.size(), 1u);
     auto& top = menuEngine->nav_stack.back();
     MenuNode& current = (*top.first)[top.second];  
     EXPECT_EQ(current.label, "Page 1");
@@ -114,10 +137,11 @@ TEST_F(MenuEngineTest, PreviousProtection) {
 
 TEST_F(MenuEngineTest, NextProtection) {
     menuEngine->next();
-    menuEngine->next(); // cant move past page 2
+    menuEngine->next();
+    menuEngine->next();
     auto& top = menuEngine->nav_stack.back();
     MenuNode& current = (*top.first)[top.second];  
-    EXPECT_EQ(current.label, "Page 2");
+    EXPECT_EQ(current.label, "Page 3");
 
 }
 

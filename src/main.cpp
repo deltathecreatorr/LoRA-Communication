@@ -1,6 +1,7 @@
 #include "LGFX_Config.hpp"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
+#include "assets/background.h"
 
 static LGFX tft;
 
@@ -13,7 +14,7 @@ extern "C" void app_main() {
     // Test 1: plain text straight to the screen
     tft.setTextColor(TFT_WHITE, TFT_BLACK);
     tft.setTextSize(2);
-    tft.drawString("bello papoi", 20, 20);
+    tft.drawPng(background_png, background_png_len, 0, 0);
 
     while (true) {
         vTaskDelay(pdMS_TO_TICKS(1000));
